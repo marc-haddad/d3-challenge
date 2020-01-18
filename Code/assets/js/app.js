@@ -63,15 +63,24 @@ d3.csv("assets/data/data.csv").then(function(allData) {
     .attr("r", "10")
     .attr("opacity", ".8")
     .attr("class", "stateCircle")
-    .append("g")
-    .append("text")
+  
+    chartGroup.append("text")
+    .style("text-anchor", "middle")
+    .style("font-size", "12px")
+    .selectAll("tspan")
+    .data(allData)
+    .enter()
+    .append("tspan")
     .attr("class", "stateText")
-    .text(d => d.abbr);
+    .attr("x", d => xLinearScale(d.poverty - 0))
+    .attr("y", d => yLinearScale(d.healthcare - 0.2))
+    .text(d => d.abbr)
+   
 
     // Create axes labels
     chartGroup.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", -5 - margin.left)
+      .attr("y", 0 - margin.left)
       .attr("x", 0 - (height / 1.5))
       .attr("dy", "1em")
       .attr("class", "axisText")
